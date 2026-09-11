@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pytanie 💙💜</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #312e81,
+            #4f46e5,
+            #7c3aed,
+            #8b5cf6
+        );
+}
+
+
+/* =========================
+   TŁO
+========================= */
+
+.glow {
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    filter: blur(30px);
+
+    animation:
+        float 8s infinite ease-in-out;
+}
+
+.glow:nth-child(1) {
+    top: -100px;
+    left: -100px;
+}
+
+.glow:nth-child(2) {
+    bottom: -120px;
+    right: -80px;
+
+    animation-delay: 2s;
+}
+
+.glow:nth-child(3) {
+    top: 30%;
+    right: 10%;
+
+    width: 150px;
+    height: 150px;
+
+    animation-delay: 4s;
+}
+
+@keyframes float {
+
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(20px,-30px);
+    }
+
+}
+
+
+/* =========================
+   RAMKA
+========================= */
+
+.card {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 90%;
+    max-width: 550px;
+
+    padding: 50px 30px;
+
+    text-align: center;
+
+    background:
+        rgba(255,255,255,0.13);
+
+    backdrop-filter:
+        blur(18px);
+
+    border-radius: 30px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,0.35);
+
+}
+
+
+/* =========================
+   SERCE
+========================= */
+
+.heart {
+
+    font-size: 45px;
+
+    margin-bottom: 15px;
+
+    animation:
+        heartbeat 1.5s infinite;
+
+}
+
+@keyframes heartbeat {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+}
+
+
+/* =========================
+   TEKST
+========================= */
+
+h1 {
+
+    color: white;
+
+    font-size: 34px;
+
+    margin-bottom: 15px;
+
+    text-shadow:
+        0 5px 20px
+        rgba(0,0,0,0.25);
+
+}
+
+p {
+
+    color:
+        rgba(255,255,255,0.8);
+
+    font-size: 18px;
+
+    margin-bottom: 35px;
+
+}
+
+
+/* =========================
+   PRZYCISKI
+========================= */
+
+.buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 20px;
+
+    height: 70px;
+
+}
+
+
+button {
+
+    border: none;
+
+    padding:
+        16px 42px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,0.2);
+
+}
+
+
+/* =========================
+   TAK
+========================= */
+
+.yes {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #a855f7
+        );
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+.yes:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.06);
+
+    box-shadow:
+        0 15px 35px
+        rgba(168,85,247,.6);
+
+}
+
+
+/* =========================
+   NIE
+========================= */
+
+.no {
+
+    color:
+        #4f46e5;
+
+    background:
+        rgba(255,255,255,.95);
+
+    position:
+        relative;
+
+    transition:
+        left .15s ease,
+        top .15s ease,
+        transform .15s ease;
+
+}
+
+
+/* =========================
+   WYNIK
+========================= */
+
+.result {
+
+    display: none;
+
+    margin-top: 30px;
+
+    color: white;
+
+    font-size: 27px;
+
+    font-weight: bold;
+
+    animation:
+        showResult .6s ease;
+
+}
+
+@keyframes showResult {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.8);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================
+   ROMANTYCZNA ANIMACJA
+========================= */
+
+.love-animation {
+
+    display: none;
+
+    margin-top: 25px;
+
+    height: 150px;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+/* GŁÓWNE SERCE */
+
+.big-heart {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    font-size: 75px;
+
+    animation:
+        bigHeart 1.2s
+        infinite ease-in-out;
+
+}
+
+@keyframes bigHeart {
+
+    0%,100% {
+
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.25);
+
+    }
+
+}
+
+
+/* MAŁE SERDUSZKA */
+
+.floating-heart {
+
+    position: absolute;
+
+    font-size: 25px;
+
+    animation:
+        floatHeart 3s
+        infinite ease-in;
+
+    opacity: 0;
+
+}
+
+
+.floating-heart:nth-child(2) {
+
+    left: 15%;
+
+    bottom: 0;
+
+    animation-delay: .2s;
+
+}
+
+.floating-heart:nth-child(3) {
+
+    left: 30%;
+
+    bottom: 0;
+
+    animation-delay: 1s;
+
+}
+
+.floating-heart:nth-child(4) {
+
+    right: 30%;
+
+    bottom: 0;
+
+    animation-delay: .6s;
+
+}
+
+.floating-heart:nth-child(5) {
+
+    right: 15%;
+
+    bottom: 0;
+
+    animation-delay: 1.5s;
+
+}
+
+
+@keyframes floatHeart {
+
+    0% {
+
+        transform:
+            translateY(20px)
+            scale(.5);
+
+        opacity: 0;
+
+    }
+
+    30% {
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform:
+            translateY(-130px)
+            scale(1.2);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================
+   KONFETTI
+========================= */
+
+.confetti {
+
+    position: fixed;
+
+    width: 12px;
+    height: 12px;
+
+    top: -20px;
+
+    z-index: 999;
+
+    animation:
+        fall linear forwards;
+
+}
+
+
+@keyframes fall {
+
+    to {
+
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================
+   TELEFON
+========================= */
+
+@media(max-width:500px) {
+
+    h1 {
+        font-size: 26px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    button {
+        padding:
+            14px 30px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- TŁO -->
+
+<div class="glow"></div>
+<div class="glow"></div>
+<div class="glow"></div>
+
+
+<!-- RAMKA -->
+
+<div class="card">
+
+
+    <div class="heart">
+        💙💜
+    </div>
+
+
+    <h1 id="question">
+        Czy zostaniesz moją walentynką? 💙
+    </h1>
+
+
+    <p id="description">
+        Pomyśl dobrze... odpowiedź może być tylko jedna 😏
+    </p>
+
+
+    <!-- PRZYCISKI -->
+
+    <div class="buttons" id="buttons">
+
+
+        <button
+            class="yes"
+            onclick="yesClick()">
+
+            TAK 💙
+
+        </button>
+
+
+        <button
+            class="no"
+            id="noButton">
+
+            NIE 🙈
+
+        </button>
+
+
+    </div>
+
+
+    <!-- WIADOMOŚĆ -->
+
+    <div
+        class="result"
+        id="result">
+
+    </div>
+
+
+    <!-- ROMANTYCZNA ANIMACJA -->
+
+    <div
+        class="love-animation"
+        id="loveAnimation">
+
+
+        <div class="big-heart">
+            💖
+        </div>
+
+
+        <div class="floating-heart">
+            💕
+        </div>
+
+        <div class="floating-heart">
+            💗
+        </div>
+
+        <div class="floating-heart">
+            💕
+        </div>
+
+        <div class="floating-heart">
+            💜
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   USTAWIENIA "NIE"
+========================================= */
+
+
+const dangerDistance = 150;
+
+
+/* Minimalna odległość od kursora */
+
+const safeDistance = 250;
+
+
+/*
+   OBSZAR UCIECZKI.
+
+   300 = średni
+   200 = mały
+   150 = bardzo mały
+   400 = duży
+*/
+
+const maxDistance = 300;
+
+
+const noButton =
+    document.getElementById(
+        "noButton"
+    );
+
+
+let moving = false;
+
+
+/* =========================================
+   WYKRYWANIE KURSORA
+========================================= */
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+
+        /*
+           Jeżeli przycisk został już
+           schowany — nic nie robimy.
+        */
+
+        if (
+            noButton.style.display ===
+            "none"
+        ) {
+
+            return;
+
+        }
+
+
+        const rect =
+            noButton.getBoundingClientRect();
+
+
+        const buttonX =
+            rect.left +
+            rect.width / 2;
+
+
+        const buttonY =
+            rect.top +
+            rect.height / 2;
+
+
+        const distance =
+            Math.sqrt(
+
+                Math.pow(
+                    event.clientX -
+                    buttonX,
+                    2
+                )
+
+                +
+
+                Math.pow(
+                    event.clientY -
+                    buttonY,
+                    2
+                )
+
+            );
+
+
+        if (
+            distance <
+            dangerDistance
+            &&
+            !moving
+        ) {
+
+            moveNoButton(
+                event.clientX,
+                event.clientY
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   UCIEKANIE "NIE"
+========================================= */
+
+function moveNoButton(
+    mouseX,
+    mouseY
+) {
+
+
+    moving = true;
+
+
+    noButton.style.position =
+        "fixed";
+
+
+    const buttonWidth =
+        noButton.offsetWidth;
+
+
+    const buttonHeight =
+        noButton.offsetHeight;
+
+
+    /*
+       ŚRODEK RAMKI
+    */
+
+    const card =
+        document.querySelector(
+            ".card"
+        );
+
+
+    const cardRect =
+        card.getBoundingClientRect();
+
+
+    const centerX =
+        cardRect.left +
+        cardRect.width / 2;
+
+
+    const centerY =
+        cardRect.top +
+        cardRect.height / 2;
+
+
+    let newX;
+    let newY;
+
+    let distanceFromMouse;
+
+    let distanceFromCenter;
+
+    let attempts = 0;
+
+
+    do {
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const radius =
+            Math.random() *
+            maxDistance;
+
+
+        const targetX =
+            centerX +
+            Math.cos(angle) *
+            radius;
+
+
+        const targetY =
+            centerY +
+            Math.sin(angle) *
+            radius;
+
+
+        newX =
+            targetX -
+            buttonWidth / 2;
+
+
+        newY =
+            targetY -
+            buttonHeight / 2;
+
+
+        /*
+           Granice ekranu
+        */
+
+        newX =
+            Math.max(
+                10,
+
+                Math.min(
+                    newX,
+
+                    window.innerWidth -
+                    buttonWidth -
+                    10
+                )
+            );
+
+
+        newY =
+            Math.max(
+                10,
+
+                Math.min(
+                    newY,
+
+                    window.innerHeight -
+                    buttonHeight -
+                    10
+                )
+            );
+
+
+        const buttonCenterX =
+            newX +
+            buttonWidth / 2;
+
+
+        const buttonCenterY =
+            newY +
+            buttonHeight / 2;
+
+
+        /*
+           Odległość od myszy
+        */
+
+        distanceFromMouse =
+            Math.sqrt(
+
+                Math.pow(
+                    mouseX -
+                    buttonCenterX,
+                    2
+                )
+
+                +
+
+                Math.pow(
+                    mouseY -
+                    buttonCenterY,
+                    2
+                )
+
+            );
+
+
+        /*
+           Odległość od środka ramki
+        */
+
+        distanceFromCenter =
+            Math.sqrt(
+
+                Math.pow(
+                    buttonCenterX -
+                    centerX,
+                    2
+                )
+
+                +
+
+                Math.pow(
+                    buttonCenterY -
+                    centerY,
+                    2
+                )
+
+            );
+
+
+        attempts++;
+
+
+    } while (
+
+        (
+
+            distanceFromMouse <
+            safeDistance
+
+            ||
+
+            distanceFromCenter >
+            maxDistance
+
+        )
+
+        &&
+
+        attempts < 100
+
+    );
+
+
+    noButton.style.left =
+        newX + "px";
+
+
+    noButton.style.top =
+        newY + "px";
+
+
+    const rotation =
+        Math.random() *
+        16 -
+        8;
+
+
+    noButton.style.transform =
+        `rotate(${rotation}deg)`;
+
+
+    setTimeout(
+        () => {
+
+            moving = false;
+
+        },
+
+        100
+    );
+
+}
+
+
+/* =========================================
+   KLIKNIĘCIE "TAK"
+========================================= */
+
+function yesClick() {
+
+
+    /*
+       NATYCHMIASTOWE ZNIKNIĘCIE "NIE"
+    */
+
+    noButton.style.display =
+        "none";
+
+
+    /*
+       Ukrywamy przyciski
+       po kliknięciu TAK.
+    */
+
+    document.getElementById(
+        "buttons"
+    ).style.height = "0";
+
+
+    /*
+       Zmieniamy tekst.
+    */
+
+    document.getElementById(
+        "question"
+    ).innerHTML =
+        "Wiedziałem! 💙💜🥰";
+
+
+    document.getElementById(
+        "description"
+    ).innerHTML =
+        "To chyba początek czegoś pięknego ❤️";
+
+
+    /*
+       Pokazujemy wiadomość.
+    */
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    result.style.display =
+        "block";
+
+
+    result.innerHTML =
+        "Bardzo się cieszę! 💕";
+
+
+    /*
+       Pokazujemy romantyczną animację.
+    */
+
+    document.getElementById(
+        "loveAnimation"
+    ).style.display =
+        "block";
+
+
+    /*
+       Konfetti.
+    */
+
+    createConfetti();
+
+}
+
+
+/* =========================================
+   KONFETTI
+========================================= */
+
+function createConfetti() {
+
+
+    const colors = [
+
+        "#6366f1",
+        "#8b5cf6",
+        "#a855f7",
+        "#ffffff",
+        "#60a5fa"
+
+    ];
+
+
+    for (
+        let i = 0;
+        i < 150;
+        i++
+    ) {
+
+
+        const confetti =
+            document.createElement(
+                "div"
+            );
+
+
+        confetti.classList.add(
+            "confetti"
+        );
+
+
+        confetti.style.left =
+            Math.random() *
+            100 +
+            "vw";
+
+
+        confetti.style.backgroundColor =
+            colors[
+                Math.floor(
+                    Math.random() *
+                    colors.length
+                )
+            ];
+
+
+        confetti.style.animationDuration =
+            2 +
+            Math.random() *
+            3 +
+            "s";
+
+
+        confetti.style.borderRadius =
+            Math.random() > 0.5
+                ? "50%"
+                : "0";
+
+
+        document.body.appendChild(
+            confetti
+        );
+
+
+        setTimeout(
+            () => {
+
+                confetti.remove();
+
+            },
+
+            5000
+        );
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>
