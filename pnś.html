@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pytanie 💙💜</title>
+<title>Sekretne Archiwum💙💜</title>
 
 <!-- IKONA W ZAKŁADCE PRZEGLĄDARKI -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>M</text></svg>">
@@ -36,13 +36,14 @@ body {
 ========================= */
 
 .glow {
-    position: absolute;
+    position: fixed;
     width: 300px;
     height: 300px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.08);
     filter: blur(30px);
     animation: float 8s infinite ease-in-out;
+    pointer-events: none;
 }
 
 .glow:nth-child(1) {
@@ -70,15 +71,212 @@ body {
 }
 
 /* =========================
+   LOBBY (DASHBOARD APLIKACJI)
+========================= */
+
+.lobby-container {
+    position: relative;
+    z-index: 10;
+    width: 92%;
+    max-width: 950px;
+    padding: 40px 20px;
+    text-align: center;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.lobby-header {
+    margin-bottom: 35px;
+}
+
+.lobby-header h1 {
+    color: white;
+    font-size: 36px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.lobby-header p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 18px;
+}
+
+.tiles-grid {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.tile {
+    flex: 1 1 260px;
+    max-width: 290px;
+    min-height: 310px;
+    background: rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(16px);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    padding: 35px 22px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tile:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tile-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.tile-icon {
+    font-size: 55px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));
+}
+
+.tile h3 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.tile p {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14px;
+    line-height: 1.45;
+    margin-bottom: 20px;
+}
+
+.tile-action {
+    color: white;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+.tile:hover .tile-action {
+    transform: scale(1.05);
+}
+
+/* =========================
+   TAJEMNICZE ZABLOKOWANE KAFELKI
+========================= */
+
+.tile.mystery {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    cursor: not-allowed;
+}
+
+.tile.mystery:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.mystery-icon {
+    font-size: 60px;
+    animation: pulseQuestion 2s infinite ease-in-out;
+    opacity: 0.8;
+}
+
+@keyframes pulseQuestion {
+    0%, 100% { transform: scale(1); opacity: 0.65; }
+    50% { transform: scale(1.12); opacity: 1; filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.6)); }
+}
+
+.mystery-blurred-text {
+    filter: blur(4.5px);
+    user-select: none;
+    opacity: 0.55;
+    color: white;
+}
+
+.tile.mystery .tile-action {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.65);
+    box-shadow: none;
+}
+
+/* Podpis pod kafelkami */
+.lobby-footer {
+    margin-top: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.07);
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+/* =========================
+   PRZYCISK POWROTU DO MENU
+========================= */
+
+.back-to-lobby {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 20;
+}
+
+.back-to-lobby:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* =========================
    EKRAN WERYFIKACJI
 ========================= */
 
 .gate-card {
+    display: none;
     position: relative;
     z-index: 10;
     width: 90%;
     max-width: 440px;
-    padding: 40px 30px;
+    padding: 55px 30px 40px;
     text-align: center;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(18px);
@@ -154,7 +352,7 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -168,7 +366,7 @@ body {
     z-index: 5;
     width: 90%;
     max-width: 550px;
-    padding: 50px 30px;
+    padding: 55px 30px 40px;
     text-align: center;
     background: rgba(255, 255, 255, 0.13);
     backdrop-filter: blur(18px);
@@ -247,7 +445,27 @@ button {
     color: #4f46e5;
     background: rgba(255, 255, 255, 0.95);
     position: relative;
-    transition: left 0.15s ease, top 0.15s ease, transform 0.15s ease;
+    transition: left 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                top 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                transform 0.18s ease;
+    z-index: 25;
+}
+
+/* Tekst po 20 ucieczkach */
+.timeout-notice {
+    display: none;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fbcfe8;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.5px;
+    animation: pulseNotice 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseNotice {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.04); opacity: 1; }
 }
 
 /* =========================
@@ -394,6 +612,7 @@ button {
 }
 
 @media(max-width: 500px) {
+    .lobby-header h1 { font-size: 28px; }
     h1 { font-size: 26px; }
     p { font-size: 16px; }
     button { padding: 14px 30px; }
@@ -415,10 +634,63 @@ button {
 <div class="glow"></div>
 
 <!-- =========================
+     LOBBY / MENU KAFELKOWE
+========================= -->
+
+<div class="lobby-container" id="lobbyContainer">
+    <div class="lobby-header">
+        <h1>Sekretne Archiwum ✨</h1>
+        <p>Wybierz kafelek, aby przejść dalej</p>
+    </div>
+
+    <div class="tiles-grid">
+        <!-- KAFELEK 1: ODBLOKOWANY -->
+        <div class="tile" onclick="openMainExperience()">
+            <span class="tile-badge">Dostępne Dla Ciebie</span>
+            <div class="tile-icon">💌</div>
+            <div>
+                <h3>Ważne Pytanie</h3>
+                <p>Niespodzianka tylko dla właściwej osoby.</p>
+            </div>
+            <div class="tile-action">Otwórz →</div>
+        </div>
+
+        <!-- KAFELEK 2: TAJEMNICZY / ZABLUROWANY -->
+        <div class="tile mystery" onclick="lockedTileNotice()">
+            <span class="tile-badge">Sekret</span>
+            <div class="tile-icon mystery-icon">❓</div>
+            <div>
+                <h3>Ściśle tajne</h3>
+                <p class="mystery-blurred-text">Ten moduł jest jeszcze nieodkryty. Czas pokaże, co się tutaj znajdzie.</p>
+            </div>
+            <div class="tile-action">Zablokowane 🔒</div>
+        </div>
+
+        <!-- KAFELEK 3: TAJEMNICZY / ZABLUROWANY -->
+        <div class="tile mystery" onclick="lockedTileNotice()">
+            <span class="tile-badge">Sekret</span>
+            <div class="tile-icon mystery-icon">❓</div>
+            <div>
+                <h3>Ściśle tajne</h3>
+                <p class="mystery-blurred-text">Kolejna niespodzianka czeka na swój właściwy moment.</p>
+            </div>
+            <div class="tile-action">Zablokowane 🔒</div>
+        </div>
+    </div>
+
+    <!-- PODPIS POD KAFELKAMI -->
+    <div class="lobby-footer">
+        🔒 Kolejne karty odblokują się z czasem... Więcej już wkrótce ✨
+    </div>
+</div>
+
+<!-- =========================
      BRAMKA WERYFIKACYJNA (2 KROKI)
 ========================= -->
 
 <div class="gate-card" id="gateCard">
+    <button class="back-to-lobby" onclick="returnToLobby()">← Menu</button>
+
     <!-- KROK 1: IMIĘ -->
     <div class="step" id="step1">
         <h2>Zanim przejdziemy dalej... ✨</h2>
@@ -438,7 +710,7 @@ button {
             <img 
                 class="wrong-gif" 
                 src="Middle Finger GIF.gif" 
-                alt="Podejrzliwy kot"
+                alt="Błędne imię"
             >
         </div>
     </div>
@@ -460,7 +732,7 @@ button {
             <img 
                 class="wrong-gif" 
                 src="Lmao Lol GIF by TinQ.gif" 
-                alt="lol"
+                alt="Błędna data"
             >
         </div>
     </div>
@@ -481,6 +753,7 @@ button {
 
 <!-- GŁÓWNA RAMKA -->
 <div class="card" id="mainCard">
+    <button class="back-to-lobby" onclick="returnToLobby()">← Menu</button>
     <div class="heart">💙💜</div>
 
     <h1 id="question">
@@ -501,10 +774,44 @@ button {
         </button>
     </div>
 
+    <!-- NAPIS PO 20 PRÓBACH -->
+    <div class="timeout-notice" id="timeoutNotice">
+        tik tak tik tak, nie mam całego dnia ⏳😏
+    </div>
+
     <div class="result" id="result"></div>
 </div>
 
 <script>
+
+/* =========================
+   ZARZĄDZANIE LOBBY
+========================= */
+
+function openMainExperience() {
+    const lobby = document.getElementById("lobbyContainer");
+    const gate = document.getElementById("gateCard");
+    const mainCard = document.getElementById("mainCard");
+
+    lobby.style.display = "none";
+
+    if (isVerified) {
+        mainCard.style.display = "block";
+    } else {
+        gate.style.display = "block";
+        gate.style.opacity = "1";
+        gate.style.transform = "scale(1)";
+    }
+}
+
+function lockedTileNotice() {
+    alert("🤫 Ciii... to tajemnica! Ta karta odblokuje się w swoim czasie. Sprawdź najpierw pierwszą! 💙");
+}
+
+/* RESTARTOWANIE CAŁEJ STRONY PO KLIKNIĘCIU W MENU */
+function returnToLobby() {
+    window.location.reload();
+}
 
 /* =========================================
    DWUSTOPNIOWA WERYFIKACJA
@@ -518,7 +825,16 @@ function checkName() {
     const enteredName = input.value.trim().toLowerCase();
     const wrongBox = document.getElementById("wrongNameBox");
 
-    if (enteredName === "magda") {
+    const validNames = [
+        "magda",
+        "madzia",
+        "magdalena",
+        "madziula",
+        "madziulka",
+        "madzix"
+    ];
+
+    if (validNames.includes(enteredName)) {
         wrongBox.style.display = "none";
         document.getElementById("step1").style.display = "none";
         document.getElementById("step2").style.display = "block";
@@ -536,7 +852,6 @@ function checkDate() {
     const gateCard = document.getElementById("gateCard");
     const mainCard = document.getElementById("mainCard");
 
-    // Akceptuje format pola input type=date (2026-09-09) oraz wersje tekstowe
     const correctOptions = [
         "2026-09-09",
         "09.09.2026",
@@ -561,19 +876,20 @@ function checkDate() {
     }
 }
 
-/* =========================================
-   USTAWIENIA PRZYCISKU NIE
-========================================= */
+/* =======================================================
+   USTAWIENIA PRZYCISKU NIE (MAX 20 UCIECZEK)
+======================================================= */
 
-const dangerDistance = 150;
-const safeDistance = 250;
-const maxDistance = 400;
+const dangerDistance = 120;
+const safeDistance = 140;
+const maxRadiusFromCard = 180;
 
 const noButton = document.getElementById("noButton");
 let moving = false;
+let escapeCount = 0; // Licznik ucieczek
 
 document.addEventListener("mousemove", function(event) {
-    if (!isVerified || noButton.style.display === "none") {
+    if (!isVerified || noButton.style.display === "none" || document.getElementById("mainCard").style.display === "none") {
         return;
     }
 
@@ -587,6 +903,15 @@ document.addEventListener("mousemove", function(event) {
     );
 
     if (distance < dangerDistance && !moving) {
+        escapeCount++;
+
+        // Po 20 razach przycisk znika i pojawia się komunikat
+        if (escapeCount >= 20) {
+            noButton.style.display = "none";
+            document.getElementById("timeoutNotice").style.display = "block";
+            return;
+        }
+
         moveNoButton(event.clientX, event.clientY);
     }
 });
@@ -598,59 +923,53 @@ function moveNoButton(mouseX, mouseY) {
     const buttonWidth = noButton.offsetWidth;
     const buttonHeight = noButton.offsetHeight;
 
-    const card = document.querySelector(".card");
+    const card = document.getElementById("mainCard");
     const cardRect = card.getBoundingClientRect();
+    const cardCenterX = cardRect.left + cardRect.width / 2;
+    const cardCenterY = cardRect.top + cardRect.height / 2;
 
-    const centerX = cardRect.left + cardRect.width / 2;
-    const centerY = cardRect.top + cardRect.height / 2;
+    const padding = 20;
+    const minScreenX = padding;
+    const maxScreenX = Math.max(padding, window.innerWidth - buttonWidth - padding);
+    const minScreenY = padding;
+    const maxYScreen = Math.max(padding, window.innerHeight - buttonHeight - padding);
 
-    let newX;
-    let newY;
-    let distanceFromMouse;
-    let distanceFromCenter;
+    let newX, newY, distanceFromMouse;
     let attempts = 0;
 
     do {
         const angle = Math.random() * Math.PI * 2;
-        const radius = Math.random() * maxDistance;
+        const radius = 60 + Math.random() * (maxRadiusFromCard - 60);
 
-        const targetX = centerX + Math.cos(angle) * radius;
-        const targetY = centerY + Math.sin(angle) * radius;
+        const targetCenterX = cardCenterX + Math.cos(angle) * radius;
+        const targetCenterY = cardCenterY + Math.sin(angle) * radius;
 
-        newX = targetX - buttonWidth / 2;
-        newY = targetY - buttonHeight / 2;
+        newX = targetCenterX - buttonWidth / 2;
+        newY = targetCenterY - buttonHeight / 2;
 
-        newX = Math.max(10, Math.min(newX, window.innerWidth - buttonWidth - 10));
-        newY = Math.max(10, Math.min(newY, window.innerHeight - buttonHeight - 10));
+        newX = Math.max(minScreenX, Math.min(newX, maxScreenX));
+        newY = Math.max(minScreenY, Math.min(newY, maxYScreen));
 
-        const buttonCenterX = newX + buttonWidth / 2;
-        const buttonCenterY = newY + buttonHeight / 2;
+        const btnCenterX = newX + buttonWidth / 2;
+        const btnCenterY = newY + buttonHeight / 2;
 
         distanceFromMouse = Math.sqrt(
-            Math.pow(mouseX - buttonCenterX, 2) +
-            Math.pow(mouseY - buttonCenterY, 2)
-        );
-
-        distanceFromCenter = Math.sqrt(
-            Math.pow(buttonCenterX - centerX, 2) +
-            Math.pow(buttonCenterY - centerY, 2)
+            Math.pow(mouseX - btnCenterX, 2) +
+            Math.pow(mouseY - btnCenterY, 2)
         );
 
         attempts++;
-    } while (
-        (distanceFromMouse < safeDistance || distanceFromCenter > maxDistance) &&
-        attempts < 100
-    );
+    } while (distanceFromMouse < safeDistance && attempts < 40);
 
-    noButton.style.left = newX + "px";
-    noButton.style.top = newY + "px";
+    noButton.style.left = `${newX}px`;
+    noButton.style.top = `${newY}px`;
 
-    const rotation = Math.random() * 16 - 8;
+    const rotation = Math.random() * 20 - 10;
     noButton.style.transform = `rotate(${rotation}deg)`;
 
     setTimeout(() => {
         moving = false;
-    }, 100);
+    }, 110);
 }
 
 /* =========================================
@@ -662,6 +981,9 @@ function yesClick() {
 
     noButton.style.display = "none";
     document.getElementById("buttons").style.height = "0";
+
+    // Ukrywamy komunikat czasu, jeśli był widoczny
+    document.getElementById("timeoutNotice").style.display = "none";
 
     document.getElementById("question").innerHTML = "Wiedziałem RAWR! 💙💜🥰";
     document.getElementById("description").innerHTML = "To chyba początek czegoś pięknego ❤️";
@@ -720,7 +1042,7 @@ function startFullscreenHearts() {
 
 /* =========================================
    KONFETTI
-========================================= */
+========================= */
 
 function createConfetti() {
     const colors = ["#6366f1", "#8b5cf6", "#a855f7", "#ffffff", "#60a5fa"];
