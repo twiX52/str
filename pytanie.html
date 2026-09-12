@@ -135,7 +135,7 @@ body {
 }
 
 /* ====================================================
-   GALERIA ZDJĘĆ - POWIĘKSZANIE PO NAJECHANIU
+   GALERIA ZDJĘĆ - WACHLARZ KART W RĘCE + SEKRETNE POLE
 ==================================================== */
 
 .gallery-container {
@@ -143,14 +143,14 @@ body {
     position: relative;
     z-index: 10;
     width: 94%;
-    max-width: 950px;
+    max-width: 1050px;
     padding: 60px 20px 30px;
     text-align: center;
     animation: fadeIn 0.5s ease forwards;
 }
 
 .gallery-header {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .gallery-header h1 {
@@ -169,34 +169,49 @@ body {
 .photo-tiles-grid {
     display: flex;
     justify-content: center;
-    align-items: stretch;
-    gap: 22px;
+    align-items: center;
+    gap: 30px;
     flex-wrap: wrap;
+    perspective: 1200px;
+    padding: 20px 0;
 }
 
 .photo-tile {
-    flex: 1 1 240px;
-    max-width: 280px;
+    position: relative;
+    width: 250px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(16px);
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 15px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-    /* Płynne przejście powiększenia */
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, background 0.35s ease;
     cursor: pointer;
+    transform-origin: bottom center;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, background 0.4s ease;
+}
+
+.photo-tiles-grid:hover .photo-tile:nth-child(1) {
+    transform: translateY(-15px) rotate(-8deg) scale(1.05);
+}
+
+.photo-tiles-grid:hover .photo-tile:nth-child(2) {
+    transform: translateY(-25px) rotate(0deg) scale(1.08);
+    z-index: 5;
+}
+
+.photo-tiles-grid:hover .photo-tile:nth-child(3) {
+    transform: translateY(-15px) rotate(8deg) scale(1.05);
 }
 
 .photo-tile:hover {
-    transform: translateY(-12px) scale(1.08); /* Powiększenie całego kafelka */
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    z-index: 10 !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
     background: rgba(255, 255, 255, 0.22);
 }
 
 .photo-wrapper {
     width: 100%;
-    height: 250px;
+    height: 230px;
     border-radius: 16px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.2);
@@ -211,15 +226,55 @@ body {
 }
 
 .photo-tile:hover .photo-wrapper img {
-    transform: scale(1.05); /* Delikatne powiększenie samego obrazka w środku */
+    transform: scale(1.05);
 }
 
 .photo-caption {
-    margin-top: 14px;
+    margin-top: 12px;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.secret-slot {
+    position: absolute;
+    top: 50%;
+    left: 102%;
+    transform: translateY(-50%) scale(0);
+    width: 130px;
+    height: 170px;
+    background: linear-gradient(135deg, rgb(135, 206, 250), rgb(30, 144, 255));
+    border-radius: 16px;
+    padding: 8px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-tile:hover .secret-slot {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+}
+
+.secret-slot img {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.secret-slot span {
+    margin-top: 5px;
+    color: rgb(30, 58, 138);
+    font-size: 11px;
+    font-weight: bold;
 }
 
 .card {
@@ -411,7 +466,7 @@ button.action-btn {
     <source src="Ravyn lenae - Love me not [Lyrics Video].mp3" type="audio/mpeg">
 </audio>
 
-<audio id="galleryMusic">
+<audio id="galleryMusic" loop>
     <source src="Jan-rapowanie & NOCNY - Zaczekaj przed drzwiami [official video].mp3" type="audio/mpeg">
 </audio>
 
@@ -424,7 +479,6 @@ button.action-btn {
     <img class="idle-pet-gif" src="miss you.gif" alt="Zwierzątko">
 </div>
 
-<!-- BRAMKA WERYFIKACJI -->
 <div class="gate-card" id="gateCard">
     <button class="back-to-lobby" onclick="returnToLobby()">← Menu</button>
 
@@ -453,7 +507,6 @@ button.action-btn {
     </div>
 </div>
 
-<!-- GALERIA ZDJĘĆ -->
 <div class="gallery-container" id="galleryContainer">
     <button class="back-to-lobby" onclick="returnToLobby()">← Menu</button>
     
@@ -466,14 +519,28 @@ button.action-btn {
         <div class="photo-tile">
             <div class="photo-wrapper"><img src="zdjecie 1.jpg" alt="Zdjęcie 1"></div>
             <div class="photo-caption">Madziulka w aucie 🚗</div>
+            <div class="secret-slot">
+                <img src="sekretne1.jpe" alt="Sekretne 1">
+                <span>Sekret ✨</span>
+            </div>
         </div>
+
         <div class="photo-tile">
-            <div class="photo-wrapper"><img src="zdjecie 2.jpe" alt="Zdjęcie 2"></div>
+            <div class="photo-wrapper"><img src="zdjecie2.jpe" alt="Zdjęcie 2"></div>
             <div class="photo-caption">Madziuluś u fryzjera ✂️</div>
+            <div class="secret-slot">
+                <img src="sekretne2.jpe" alt="Sekretne 2">
+                <span>Sekret 💖</span>
+            </div>
         </div>
+
         <div class="photo-tile">
             <div class="photo-wrapper"><img src="zdjecie 3.jpe" alt="Zdjęcie 3"></div>
             <div class="photo-caption">Madziunia na ognisku 🔥</div>
+            <div class="secret-slot">
+                <img src="sekretne3.jpe" alt="Sekretne 3">
+                <span>Sekret 💫</span>
+            </div>
         </div>
     </div>
 </div>
@@ -483,7 +550,6 @@ button.action-btn {
     <img class="romantic-gif right-gif" src="Thanks Love GIF.gif" alt="Misie">
 </div>
 
-<!-- GŁÓWNA RAMKA Z PYTANIEM -->
 <div class="card" id="mainCard">
     <button class="back-to-lobby" onclick="returnToLobby()">← Menu</button>
     <div class="heart">💙💜</div>
@@ -638,6 +704,7 @@ function yesClick() {
     createConfetti();
     startFullscreenHearts();
 
+    document.getElementById("galleryMusic").pause();
     const music = document.getElementById("backgroundMusic");
     music.currentTime = 26;
     music.volume = 0.2;
