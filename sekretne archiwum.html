@@ -22,6 +22,11 @@ body {
     align-items: center;
     overflow: hidden;
     background: linear-gradient(135deg, #312e81, #4f46e5, #7c3aed, #8b5cf6);
+    /* Blokada zaznaczania tekstu na całej stronie */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .glow {
@@ -69,6 +74,11 @@ body {
 .lobby-header p {
     color: rgba(255, 255, 255, 0.85);
     font-size: 18px;
+}
+
+/* Ukryty przycisk wyglądający jak zwykły tekst */
+.secret-dalej {
+    cursor: default;
 }
 
 .tiles-grid {
@@ -180,7 +190,6 @@ body {
 
 .mystery-blurred-text {
     filter: blur(4.5px);
-    user-select: none;
     opacity: 0.55;
     color: white;
 }
@@ -283,7 +292,7 @@ body {
 <div class="lobby-container">
     <div class="lobby-header">
         <h1>Sekretne Archiwum ✨</h1>
-        <p>Wybierz kafelek, aby przejść dalej</p>
+        <p>Wybierz kafelek, aby przejść <span class="secret-dalej" onclick="handleSecretClick()">dalej</span></p>
     </div>
 
     <div class="tiles-grid">
@@ -298,7 +307,7 @@ body {
             <div class="tile-action">Otwórz →</div>
         </div>
 
-        <div class="tile mystery" onclick="alert('🤫 Ciii... to tajemnica! Ta karta odblokuje się w swoim czasie.')">
+        <div class="tile mystery" onclick="lockedTileNotice()">
             <span class="tile-badge">Sekret</span>
             <div class="tile-icon mystery-icon">❓</div>
             <div>
@@ -308,7 +317,7 @@ body {
             <div class="tile-action">Zablokowane 🔒</div>
         </div>
 
-        <div class="tile mystery" onclick="alert('🤫 Ciii... to tajemnica! Ta karta odblokuje się w swoim czasie.')">
+        <div class="tile mystery" onclick="lockedTileNotice()">
             <span class="tile-badge">Sekret</span>
             <div class="tile-icon mystery-icon">❓</div>
             <div>
@@ -325,6 +334,22 @@ body {
 </div>
 
 <script>
+// LICZNIK KLIKNIĘĆ W SŁOWO "dalej"
+let clickCount = 0;
+
+function handleSecretClick() {
+    clickCount++;
+    
+    if (clickCount >= 5) {
+        // Po 5 kliknięciach przenosi do nowej strony html
+        window.location.href = 'tajemnica.html'; 
+    }
+}
+
+function lockedTileNotice() {
+    alert("🤫 Ciii... to tajemnica! Ta karta odblokuje się w swoim czasie.");
+}
+
 const INACTIVITY_TIME = 20 * 1000; // 20 sekund bezczynności
 let inactivityTimer = null;
 let isAfk = false;
