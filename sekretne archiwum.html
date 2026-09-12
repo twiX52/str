@@ -3,18 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sekretne Archiwum 💙💜</title>
 
-<title>Sekretne Archiwum💙💜</title>
-
-<!-- IKONA W ZAKŁADCE PRZEGLĄDARKI -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>M</text></svg>">
 
 <style>
-
-/* =========================
-   PODSTAWOWE USTAWIENIA
-========================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -31,10 +24,6 @@ body {
     background: linear-gradient(135deg, #312e81, #4f46e5, #7c3aed, #8b5cf6);
 }
 
-/* =========================
-   ŚWIATŁA W TLE
-========================= */
-
 .glow {
     position: fixed;
     width: 300px;
@@ -46,33 +35,14 @@ body {
     pointer-events: none;
 }
 
-.glow:nth-child(1) {
-    top: -100px;
-    left: -100px;
-}
-
-.glow:nth-child(2) {
-    bottom: -120px;
-    right: -80px;
-    animation-delay: 2s;
-}
-
-.glow:nth-child(3) {
-    top: 30%;
-    right: 10%;
-    width: 150px;
-    height: 150px;
-    animation-delay: 4s;
-}
+.glow:nth-child(1) { top: -100px; left: -100px; }
+.glow:nth-child(2) { bottom: -120px; right: -80px; animation-delay: 2s; }
+.glow:nth-child(3) { top: 30%; right: 10%; width: 150px; height: 150px; animation-delay: 4s; }
 
 @keyframes float {
     0%, 100% { transform: translate(0, 0); }
     50% { transform: translate(20px, -30px); }
 }
-
-/* =========================
-   LOBBY (DASHBOARD APLIKACJI)
-========================= */
 
 .lobby-container {
     position: relative;
@@ -185,10 +155,6 @@ body {
     transform: scale(1.05);
 }
 
-/* =========================
-   TAJEMNICZE ZABLOKOWANE KAFELKI
-========================= */
-
 .tile.mystery {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -226,7 +192,6 @@ body {
     box-shadow: none;
 }
 
-/* Podpis pod kafelkami */
 .lobby-footer {
     margin-top: 15px;
     color: rgba(255, 255, 255, 0.7);
@@ -242,410 +207,88 @@ body {
     backdrop-filter: blur(10px);
 }
 
-/* =========================
-   PRZYCISK POWROTU DO MENU
-========================= */
+/* ====================================================
+   ANIMOWANE ZWIERZĄTKO PO DŁUGIEJ NIEAKTYWNOŚCI (AFK)
+==================================================== */
 
-.back-to-lobby {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(255, 255, 255, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    font-size: 13px;
-    padding: 6px 14px;
+.idle-pet-container {
+    position: fixed;
+    bottom: -220px;
+    right: 25px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+}
+
+.idle-pet-container.active {
+    bottom: 25px;
+}
+
+.idle-pet-bubble {
+    background: rgba(255, 255, 255, 0.95);
+    color: #4f46e5;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 18px;
     border-radius: 20px;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-    z-index: 20;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    margin-bottom: 8px;
+    white-space: nowrap;
+    animation: petFloat 2.5s ease-in-out infinite;
 }
 
-.back-to-lobby:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05);
+.idle-pet-gif {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    border: 3px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
 }
 
-/* =========================
-   EKRAN WERYFIKACJI
-========================= */
-
-.gate-card {
-    display: none;
-    position: relative;
-    z-index: 10;
-    width: 90%;
-    max-width: 440px;
-    padding: 55px 30px 40px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(18px);
-    border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.gate-card h2 {
-    color: white;
-    font-size: 25px;
-    margin-bottom: 20px;
-}
-
-.gate-input {
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 18px;
-    border-radius: 50px;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.9);
-    outline: none;
-    text-align: center;
-    color: #312e81;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.gate-input:focus {
-    border-color: #a855f7;
-}
-
-.gate-btn {
-    background: linear-gradient(135deg, #6366f1, #a855f7);
-    color: white;
-    border: none;
-    padding: 14px 36px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
-}
-
-.gate-btn:hover {
-    transform: scale(1.05);
-}
-
-.step {
-    animation: fadeIn 0.4s ease;
-}
-
-.wrong-box {
-    display: none;
-    margin-top: 25px;
-    animation: fadeIn 0.4s ease;
-}
-
-.wrong-text {
-    color: #ffb4b4;
-    font-size: 19px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-.wrong-gif {
-    width: 180px;
-    border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+@keyframes petFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* =========================
-   GŁÓWNA RAMKA
-========================= */
-
-.card {
-    display: none;
-    position: relative;
-    z-index: 5;
-    width: 90%;
-    max-width: 550px;
-    padding: 55px 30px 40px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.13);
-    backdrop-filter: blur(18px);
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-    animation: showResult 0.5s ease forwards;
-}
-
-/* =========================
-   SERDUSZKO
-========================= */
-
-.heart {
-    font-size: 45px;
-    margin-bottom: 15px;
-    animation: heartbeat 1.5s infinite;
-}
-
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-}
-
-/* =========================
-   TEKST
-========================= */
-
-h1 {
-    color: white;
-    font-size: 34px;
-    margin-bottom: 15px;
-    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
-}
-
-p {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 18px;
-    margin-bottom: 35px;
-}
-
-/* =========================
-   PRZYCISKI
-========================= */
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    height: 70px;
-}
-
-button {
-    border: none;
-    padding: 16px 42px;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.yes {
-    color: white;
-    background: linear-gradient(135deg, #6366f1, #a855f7);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.yes:hover {
-    transform: translateY(-5px) scale(1.06);
-    box-shadow: 0 15px 35px rgba(168, 85, 247, 0.6);
-}
-
-.no {
-    color: #4f46e5;
-    background: rgba(255, 255, 255, 0.95);
-    position: relative;
-    transition: left 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                top 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                transform 0.18s ease;
-    z-index: 25;
-}
-
-/* Tekst po 20 ucieczkach */
-.timeout-notice {
-    display: none;
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fbcfe8;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    letter-spacing: 0.5px;
-    animation: pulseNotice 1.8s infinite ease-in-out;
-}
-
-@keyframes pulseNotice {
-    0%, 100% { transform: scale(1); opacity: 0.9; }
-    50% { transform: scale(1.04); opacity: 1; }
-}
-
-/* =========================
-   WIADOMOŚĆ PO KLIKNIĘCIU
-========================= */
-
-.result {
-    display: none;
-    margin-top: 30px;
-    color: white;
-    font-size: 27px;
-    font-weight: bold;
-    animation: showResult 0.6s ease;
-}
-
-@keyframes showResult {
-    from {
-        opacity: 0;
-        transform: translateY(15px) scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* =========================
-   SERDUSZKA NA CAŁYM EKRANIE
-========================= */
-
-.screen-heart {
-    position: fixed;
-    bottom: -60px;
-    z-index: 10;
-    pointer-events: none;
-    user-select: none;
-    animation: floatUpScreen linear forwards;
-}
-
-@keyframes floatUpScreen {
-    0% {
-        transform: translateY(0) translateX(0) scale(0.6);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.95;
-    }
-    50% {
-        transform: translateY(-55vh) translateX(25px) scale(1.1) rotate(15deg);
-        opacity: 0.95;
-    }
-    90% {
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(-120vh) translateX(-25px) scale(1.2) rotate(-15deg);
-        opacity: 0;
-    }
-}
-
-/* =========================
-   KONFETTI
-========================= */
-
-.confetti {
-    position: fixed;
-    width: 12px;
-    height: 12px;
-    top: -20px;
-    z-index: 999;
-    animation: fall linear forwards;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(720deg);
-        opacity: 0;
-    }
-}
-
-/* =========================
-   ROMANTYCZNE GIF-Y
-========================= */
-
-.romantic-gifs {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 4;
-    pointer-events: none;
-}
-
-.romantic-gif {
-    position: absolute;
-    width: 220px;
-    max-width: 20vw;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
-    animation: cuteGifFloat 3s infinite ease-in-out;
-}
-
-.left-gif {
-    left: 4%;
-    top: 50%;
-    transform: translateY(-50%) rotate(-5deg);
-}
-
-.right-gif {
-    right: 4%;
-    top: 50%;
-    transform: translateY(-50%) rotate(5deg);
-    animation-delay: 0.8s;
-}
-
-@keyframes cuteGifFloat {
-    0%, 100% { margin-top: 0; }
-    50% { margin-top: -14px; }
-}
-
-@media (max-width: 900px) {
-    .romantic-gif {
-        width: 140px;
-        max-width: 20vw;
-    }
-}
-
 @media (max-width: 650px) {
-    .romantic-gif {
-        width: 110px;
-        max-width: 28vw;
-    }
-
-    .left-gif {
-        left: 3%;
-        top: 10%;
-        transform: rotate(-6deg);
-    }
-
-    .right-gif {
-        right: 3%;
-        top: 10%;
-        transform: rotate(6deg);
-    }
+    .idle-pet-container { right: 15px; }
+    .idle-pet-gif { width: 85px; height: 85px; }
+    .idle-pet-bubble { font-size: 12px; padding: 8px 14px; }
 }
-
-@media(max-width: 500px) {
-    .lobby-header h1 { font-size: 28px; }
-    h1 { font-size: 26px; }
-    p { font-size: 16px; }
-    button { padding: 14px 30px; }
-}
-
 </style>
 </head>
-
 <body>
 
-<!-- MUZYKA -->
-<audio id="backgroundMusic">
-    <source src="Ravyn lenae - Love me not [Lyrics Video].mp3" type="audio/mpeg">
-</audio>
-
-<!-- TŁO -->
 <div class="glow"></div>
 <div class="glow"></div>
 <div class="glow"></div>
 
-<!-- =========================
-     LOBBY / MENU KAFELKOWE
-========================= -->
+<!-- ZWIERZĄTKO PO NIEAKTYWNOŚCI -->
+<div class="idle-pet-container" id="idlePetContainer">
+    <div class="idle-pet-bubble">Hej... jesteś tam jeszcze? Tęsknię! 🥺🐾</div>
+    <img class="idle-pet-gif" src="miss you.gif" alt="Zwierzątko">
+</div>
 
-<div class="lobby-container" id="lobbyContainer">
+<div class="lobby-container">
     <div class="lobby-header">
         <h1>Sekretne Archiwum ✨</h1>
         <p>Wybierz kafelek, aby przejść dalej</p>
     </div>
 
     <div class="tiles-grid">
-        <!-- KAFELEK 1: ODBLOKOWANY -->
-        <div class="tile" onclick="openMainExperience()">
+        <!-- Kliknięcie przenosi do pliku pytanie.html -->
+        <div class="tile" onclick="window.location.href='pytanie.html'">
             <span class="tile-badge">Dostępne Dla Ciebie</span>
             <div class="tile-icon">💌</div>
             <div>
@@ -655,8 +298,7 @@ button {
             <div class="tile-action">Otwórz →</div>
         </div>
 
-        <!-- KAFELEK 2: TAJEMNICZY / ZABLUROWANY -->
-        <div class="tile mystery" onclick="lockedTileNotice()">
+        <div class="tile mystery" onclick="alert('🤫 Ciii... to tajemnica! Ta karta odblokuje się w swoim czasie.')">
             <span class="tile-badge">Sekret</span>
             <div class="tile-icon mystery-icon">❓</div>
             <div>
@@ -666,8 +308,7 @@ button {
             <div class="tile-action">Zablokowane 🔒</div>
         </div>
 
-        <!-- KAFELEK 3: TAJEMNICZY / ZABLUROWANY -->
-        <div class="tile mystery" onclick="lockedTileNotice()">
+        <div class="tile mystery" onclick="alert('🤫 Ciii... to tajemnica! Ta karta odblokuje się w swoim czasie.')">
             <span class="tile-badge">Sekret</span>
             <div class="tile-icon mystery-icon">❓</div>
             <div>
@@ -678,393 +319,37 @@ button {
         </div>
     </div>
 
-    <!-- PODPIS POD KAFELKAMI -->
     <div class="lobby-footer">
         🔒 Kolejne karty odblokują się z czasem... Więcej już wkrótce ✨
     </div>
 </div>
 
-<!-- =========================
-     BRAMKA WERYFIKACYJNA (2 KROKI)
-========================= -->
-
-<div class="gate-card" id="gateCard">
-    <button class="back-to-lobby" onclick="returnToLobby()">← Menu</button>
-
-    <!-- KROK 1: IMIĘ -->
-    <div class="step" id="step1">
-        <h2>Zanim przejdziemy dalej... ✨</h2>
-        <input 
-            type="text" 
-            id="nameInput" 
-            class="gate-input" 
-            placeholder="Wpisz swoje imię" 
-            autocomplete="off"
-            onkeydown="if(event.key === 'Enter') checkName()"
-        >
-        <br>
-        <button class="gate-btn" onclick="checkName()">Dalej 💕</button>
-
-        <div class="wrong-box" id="wrongNameBox">
-            <div class="wrong-text">Nie jest to strona dla ciebie 🛑</div>
-            <img 
-                class="wrong-gif" 
-                src="Middle Finger GIF.gif" 
-                alt="Błędne imię"
-            >
-        </div>
-    </div>
-
-    <!-- KROK 2: DATA -->
-    <div class="step" id="step2" style="display: none;">
-        <h2>A pamiętasz tę datę? 🗓️</h2>
-        <input 
-            type="date" 
-            id="dateInput" 
-            class="gate-input" 
-            onkeydown="if(event.key === 'Enter') checkDate()"
-        >
-        <br>
-        <button class="gate-btn" onclick="checkDate()">Sprawdź 💙</button>
-
-        <div class="wrong-box" id="wrongDateBox">
-            <div class="wrong-text">Zła data... pomyśl jeszcze raz! 🙈</div>
-            <img 
-                class="wrong-gif" 
-                src="Lmao Lol GIF by TinQ.gif" 
-                alt="Błędna data"
-            >
-        </div>
-    </div>
-</div>
-
-<!-- ROMANTYCZNE GIF-Y -->
-<div class="romantic-gifs" id="romanticGifs">
-    <img
-        class="romantic-gif left-gif"
-        src="Love You Heart GIF by BREAD TREE.gif"
-        alt="Słodkie buziaki">
-
-    <img
-        class="romantic-gif right-gif"
-        src="Thanks Love GIF.gif"
-        alt="Słodkie misie przytulające się">
-</div>
-
-<!-- GŁÓWNA RAMKA -->
-<div class="card" id="mainCard">
-    <button class="back-to-lobby" onclick="returnToLobby()">← Menu</button>
-    <div class="heart">💙💜</div>
-
-    <h1 id="question">
-        Czy zostaniesz moją dziewczyną? 💙
-    </h1>
-
-    <p id="description">
-        Pomyśl dobrze... odpowiedź może być tylko jedna i nie da się jej zmienić 😏
-    </p>
-
-    <div class="buttons" id="buttons">
-        <button class="yes" onclick="yesClick()">
-            TAK 💙
-        </button>
-
-        <button class="no" id="noButton">
-            NIE 🙈
-        </button>
-    </div>
-
-    <!-- NAPIS PO 20 PRÓBACH -->
-    <div class="timeout-notice" id="timeoutNotice">
-        tik tak tik tak, nie mam całego dnia ⏳😏
-    </div>
-
-    <div class="result" id="result"></div>
-</div>
-
 <script>
+const INACTIVITY_TIME = 10 * 1000; // 10 sekund bezczynności
+let inactivityTimer = null;
+let isAfk = false;
 
-/* =========================
-   ZARZĄDZANIE LOBBY
-========================= */
+const petContainer = document.getElementById("idlePetContainer");
 
-function openMainExperience() {
-    const lobby = document.getElementById("lobbyContainer");
-    const gate = document.getElementById("gateCard");
-    const mainCard = document.getElementById("mainCard");
-
-    lobby.style.display = "none";
-
-    if (isVerified) {
-        mainCard.style.display = "block";
-    } else {
-        gate.style.display = "block";
-        gate.style.opacity = "1";
-        gate.style.transform = "scale(1)";
+function resetInactivityTimer() {
+    if (isAfk) {
+        petContainer.classList.remove("active");
+        isAfk = false;
     }
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(triggerAfkMode, INACTIVITY_TIME);
 }
 
-function lockedTileNotice() {
-    alert("🤫 Ciii... to tajemnica! Ta karta odblokuje się w swoim czasie. Sprawdź najpierw pierwszą! 💙");
+function triggerAfkMode() {
+    isAfk = true;
+    petContainer.classList.add("active");
 }
 
-/* RESTARTOWANIE CAŁEJ STRONY PO KLIKNIĘCIU W MENU */
-function returnToLobby() {
-    window.location.reload();
-}
-
-/* =========================================
-   DWUSTOPNIOWA WERYFIKACJA
-========================================= */
-
-let isVerified = false;
-
-// KROK 1: Imię
-function checkName() {
-    const input = document.getElementById("nameInput");
-    const enteredName = input.value.trim().toLowerCase();
-    const wrongBox = document.getElementById("wrongNameBox");
-
-    const validNames = [
-        "magda",
-        "madzia",
-        "magdalena",
-        "madziula",
-        "madziulka",
-        "madzix",
-        "magdalenka",
-    ];
-
-    if (validNames.includes(enteredName)) {
-        wrongBox.style.display = "none";
-        document.getElementById("step1").style.display = "none";
-        document.getElementById("step2").style.display = "block";
-    } else {
-        wrongBox.style.display = "block";
-        input.style.borderColor = "#ff4d4d";
-    }
-}
-
-// KROK 2: Data (9 września 2026)
-function checkDate() {
-    const input = document.getElementById("dateInput");
-    const enteredValue = input.value.trim().toLowerCase();
-    const wrongBox = document.getElementById("wrongDateBox");
-    const gateCard = document.getElementById("gateCard");
-    const mainCard = document.getElementById("mainCard");
-
-    const correctOptions = [
-        "2026-09-09",
-        "09.09.2026",
-        "9.09.2026",
-        "9.9.2026",
-        "9 września 2026",
-        "09 września 2026"
-    ];
-
-    if (correctOptions.includes(enteredValue)) {
-        gateCard.style.opacity = "0";
-        gateCard.style.transform = "scale(0.85)";
-
-        setTimeout(() => {
-            gateCard.style.display = "none";
-            mainCard.style.display = "block";
-            isVerified = true;
-        }, 400);
-    } else {
-        wrongBox.style.display = "block";
-        input.style.borderColor = "#ff4d4d";
-    }
-}
-
-/* =======================================================
-   USTAWIENIA PRZYCISKU NIE (MAX 20 UCIECZEK)
-======================================================= */
-
-const dangerDistance = 120;
-const safeDistance = 140;
-const maxRadiusFromCard = 180;
-
-const noButton = document.getElementById("noButton");
-let moving = false;
-let escapeCount = 0; // Licznik ucieczek
-
-document.addEventListener("mousemove", function(event) {
-    if (!isVerified || noButton.style.display === "none" || document.getElementById("mainCard").style.display === "none") {
-        return;
-    }
-
-    const rect = noButton.getBoundingClientRect();
-    const buttonX = rect.left + rect.width / 2;
-    const buttonY = rect.top + rect.height / 2;
-
-    const distance = Math.sqrt(
-        Math.pow(event.clientX - buttonX, 2) +
-        Math.pow(event.clientY - buttonY, 2)
-    );
-
-    if (distance < dangerDistance && !moving) {
-        escapeCount++;
-
-        // Po 20 razach przycisk znika i pojawia się komunikat
-        if (escapeCount >= 20) {
-            noButton.style.display = "none";
-            document.getElementById("timeoutNotice").style.display = "block";
-            return;
-        }
-
-        moveNoButton(event.clientX, event.clientY);
-    }
+["mousemove", "mousedown", "keydown", "touchstart", "scroll"].forEach(eventType => {
+    window.addEventListener(eventType, resetInactivityTimer, { passive: true });
 });
 
-function moveNoButton(mouseX, mouseY) {
-    moving = true;
-    noButton.style.position = "fixed";
-
-    const buttonWidth = noButton.offsetWidth;
-    const buttonHeight = noButton.offsetHeight;
-
-    const card = document.getElementById("mainCard");
-    const cardRect = card.getBoundingClientRect();
-    const cardCenterX = cardRect.left + cardRect.width / 2;
-    const cardCenterY = cardRect.top + cardRect.height / 2;
-
-    const padding = 20;
-    const minScreenX = padding;
-    const maxScreenX = Math.max(padding, window.innerWidth - buttonWidth - padding);
-    const minScreenY = padding;
-    const maxYScreen = Math.max(padding, window.innerHeight - buttonHeight - padding);
-
-    let newX, newY, distanceFromMouse;
-    let attempts = 0;
-
-    do {
-        const angle = Math.random() * Math.PI * 2;
-        const radius = 60 + Math.random() * (maxRadiusFromCard - 60);
-
-        const targetCenterX = cardCenterX + Math.cos(angle) * radius;
-        const targetCenterY = cardCenterY + Math.sin(angle) * radius;
-
-        newX = targetCenterX - buttonWidth / 2;
-        newY = targetCenterY - buttonHeight / 2;
-
-        newX = Math.max(minScreenX, Math.min(newX, maxScreenX));
-        newY = Math.max(minScreenY, Math.min(newY, maxYScreen));
-
-        const btnCenterX = newX + buttonWidth / 2;
-        const btnCenterY = newY + buttonHeight / 2;
-
-        distanceFromMouse = Math.sqrt(
-            Math.pow(mouseX - btnCenterX, 2) +
-            Math.pow(mouseY - btnCenterY, 2)
-        );
-
-        attempts++;
-    } while (distanceFromMouse < safeDistance && attempts < 40);
-
-    noButton.style.left = `${newX}px`;
-    noButton.style.top = `${newY}px`;
-
-    const rotation = Math.random() * 20 - 10;
-    noButton.style.transform = `rotate(${rotation}deg)`;
-
-    setTimeout(() => {
-        moving = false;
-    }, 110);
-}
-
-/* =========================================
-   KLIKNIĘCIE TAK
-========================================= */
-
-function yesClick() {
-    moving = true;
-
-    noButton.style.display = "none";
-    document.getElementById("buttons").style.height = "0";
-
-    // Ukrywamy komunikat czasu, jeśli był widoczny
-    document.getElementById("timeoutNotice").style.display = "none";
-
-    document.getElementById("question").innerHTML = "Wiedziałem RAWR! 💙💜🥰";
-    document.getElementById("description").innerHTML = "To chyba początek czegoś pięknego ❤️";
-
-    const result = document.getElementById("result");
-    result.style.display = "block";
-    result.innerHTML = "Bardzo się cieszę! 💕";
-
-    document.getElementById("romanticGifs").style.display = "block";
-
-    createConfetti();
-    startFullscreenHearts();
-
-    const music = document.getElementById("backgroundMusic");
-    music.currentTime = 26;
-    music.volume = 0.2;
-    music.play();
-}
-
-/* =========================================
-   SERDUSZKA NA CAŁYM EKRANIE DO GÓRY
-========================================= */
-
-function spawnSingleHeart(initialBottom = null) {
-    const emojis = ["💙", "💜", "💖", "💕", "💘", "✨", "💓"];
-    const heart = document.createElement("div");
-    heart.className = "screen-heart";
-    heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-
-    heart.style.left = Math.random() * 95 + "vw";
-    heart.style.fontSize = (Math.random() * 26 + 24) + "px";
-
-    const duration = (Math.random() * 2.5 + 3.5);
-    heart.style.animationDuration = duration + "s";
-
-    if (initialBottom !== null) {
-        heart.style.bottom = initialBottom + "vh";
-    }
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, duration * 1000);
-}
-
-function startFullscreenHearts() {
-    for (let i = 0; i < 25; i++) {
-        spawnSingleHeart(Math.random() * 80);
-    }
-
-    setInterval(() => {
-        spawnSingleHeart();
-    }, 200);
-}
-
-/* =========================================
-   KONFETTI
-========================= */
-
-function createConfetti() {
-    const colors = ["#6366f1", "#8b5cf6", "#a855f7", "#ffffff", "#60a5fa"];
-
-    for (let i = 0; i < 120; i++) {
-        const confetti = document.createElement("div");
-        confetti.classList.add("confetti");
-
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
-        confetti.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
-
-        document.body.appendChild(confetti);
-
-        setTimeout(() => {
-            confetti.remove();
-        }, 5000);
-    }
-}
-
+resetInactivityTimer();
 </script>
 
 </body>
