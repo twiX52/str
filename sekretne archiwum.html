@@ -20,13 +20,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    /* Zmiana na auto pozwala na przewijanie na małych ekranach telefonów */
+    overflow-y: auto;
+    overflow-x: hidden;
     background: linear-gradient(135deg, #312e81, #4f46e5, #7c3aed, #8b5cf6);
-    /* Blokada zaznaczania tekstu na całej stronie */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    padding: 20px 0; /* Bezpieczny margines góra/dół na telefonach */
 }
 
 .glow {
@@ -54,13 +56,14 @@ body {
     z-index: 10;
     width: 92%;
     max-width: 950px;
-    padding: 40px 20px;
+    padding: 20px 10px;
     text-align: center;
     animation: fadeIn 0.6s ease forwards;
+    margin: auto;
 }
 
 .lobby-header {
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 .lobby-header h1 {
@@ -85,9 +88,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: stretch;
-    gap: 25px;
+    gap: 20px;
     flex-wrap: wrap;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .tile {
@@ -204,16 +207,17 @@ body {
 .lobby-footer {
     margin-top: 15px;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.5px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background: rgba(255, 255, 255, 0.07);
-    padding: 10px 22px;
+    padding: 10px 20px;
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
+    max-width: 100%;
 }
 
 /* ====================================================
@@ -270,6 +274,34 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* ====================================================
+   RESPONSYWNOŚĆ DLA TELEFONÓW (MEDIA QUERIES)
+==================================================== */
+@media (max-width: 768px) {
+    .lobby-header h1 {
+        font-size: 28px;
+    }
+    .lobby-header p {
+        font-size: 15px;
+    }
+    .tiles-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .tile {
+        width: 100%;
+        max-width: 340px;
+        min-height: auto;
+        padding: 25px 20px 22px;
+    }
+    .lobby-footer {
+        font-size: 13px;
+        padding: 8px 15px;
+        text-align: center;
+    }
+}
+
 @media (max-width: 650px) {
     .idle-pet-container { right: 15px; }
     .idle-pet-gif { width: 85px; height: 85px; }
@@ -283,7 +315,6 @@ body {
 <div class="glow"></div>
 <div class="glow"></div>
 
-<!-- ZWIERZĄTKO PO NIEAKTYWNOŚCI -->
 <div class="idle-pet-container" id="idlePetContainer">
     <div class="idle-pet-bubble">Hej... jesteś tam jeszcze? Tęsknię! 🥺🐾</div>
     <img class="idle-pet-gif" src="miss you.gif" alt="Zwierzątko">
@@ -296,7 +327,6 @@ body {
     </div>
 
     <div class="tiles-grid">
-        <!-- Kliknięcie przenosi do pliku pytanie.html -->
         <div class="tile" onclick="window.location.href='pytanie.html'">
             <span class="tile-badge">Dostępne Dla Ciebie</span>
             <div class="tile-icon">💌</div>
@@ -350,7 +380,7 @@ function lockedTileNotice() {
     alert("🤫 Ciii... to tajemnica! Ta karta odblokuje się w swoim czasie.");
 }
 
-const INACTIVITY_TIME = 20 * 1000; // 20 sekund bezczynności
+const INACTIVITY_TIME = 25 * 1000; // 20 sekund bezczynności
 let inactivityTimer = null;
 let isAfk = false;
 

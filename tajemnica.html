@@ -20,12 +20,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    /* Pozwala na bezpieczne przewijanie na telefonach */
+    overflow-y: auto;
+    overflow-x: hidden;
     background: linear-gradient(135deg, #312e81, #4f46e5, #7c3aed, #8b5cf6);
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    padding: 30px 10px;
 }
 
 .glow {
@@ -73,18 +76,19 @@ body {
     z-index: 10;
     width: 90%;
     max-width: 440px;
-    padding: 55px 30px 40px;
+    padding: 55px 25px 35px;
     text-align: center;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(18px);
     border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    margin: auto;
 }
 
 .gate-card h2 {
     color: white;
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 20px;
 }
 
@@ -138,22 +142,43 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* KONTENER GŁÓWNY */
+/* KONTENER GŁÓWNY (RESPONSYWNY UKŁAD) */
 .secret-layout-wrapper {
     display: none;
     position: relative;
     z-index: 10;
-    width: 96%;
+    width: 95%;
     max-width: 1150px;
     justify-content: center;
     align-items: center;
     gap: 25px;
     animation: fadeIn 0.6s ease forwards;
+    margin: auto;
+    padding-top: 100px; /* Zapewnia miejsce na postać wystającą u góry na komputerze */
+}
+
+/* POLE NAD KAFELKIEM NA WIDEO */
+.character-container {
+    position: absolute;
+    top: -210px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 280px;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.character-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: screen; 
 }
 
 /* BOCZNE KAFELKI Z PŁYTĄ WINYLOWĄ */
 .vinyl-tile {
-    width: 210px;
+    width: 240px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(16px);
     border-radius: 24px;
@@ -167,8 +192,8 @@ body {
 }
 
 .vinyl-wrapper {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     background: #111;
     border: 4px solid rgba(255, 255, 255, 0.4);
@@ -181,7 +206,6 @@ body {
     align-items: center;
 }
 
-/* Styl płyty winylowej (rowki) */
 .vinyl-wrapper::before {
     content: "";
     position: absolute;
@@ -197,15 +221,10 @@ body {
     border-radius: 50%;
     object-fit: cover;
     display: block;
-    /* Domyślnie zatrzymana animacja */
-    /* ======================================================== */
-    /* TUTAJ ZMIENIA SIĘ TEMPO OBRACANIA PŁYT (zwiększ liczbę sekund, np. na 8s, żeby kręciły się wolniej) */
     animation: spinVinyl 6s linear infinite;
-    /* ======================================================== */
     animation-play-state: paused;
 }
 
-/* Klasa włączająca kręcenie się płyty */
 .vinyl-disc.playing {
     animation-play-state: running;
 }
@@ -218,25 +237,24 @@ body {
 .vinyl-caption {
     margin-top: 5px;
     color: white;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-/* Pojedynczy przycisk Play&Stop */
 .player-controls {
     display: flex;
-    margin-top: 12px;
+    margin-top: 10px;
     width: 100%;
     justify-content: center;
 }
 
 .toggle-btn {
     width: 100%;
-    padding: 8px 0;
+    padding: 7px 0;
     border: none;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -251,9 +269,10 @@ body {
 
 /* PANEL GŁÓWNY: TAJNE INFORMACJE */
 .secret-content {
+    position: relative;
     flex: 1;
-    max-width: 620px;
-    padding: 35px 25px 30px;
+    max-width: 600px;
+    padding: 35px 20px 25px;
     text-align: left;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(18px);
@@ -264,7 +283,7 @@ body {
 
 .secret-content h1 {
     color: white;
-    font-size: 25px;
+    font-size: 23px;
     margin-bottom: 18px;
     text-align: center;
     text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -280,7 +299,7 @@ body {
 
 .info-item {
     background: rgba(255, 255, 255, 0.08);
-    padding: 8px 14px;
+    padding: 8px 12px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
@@ -353,15 +372,47 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* ====================================================
+   RESPONSYWNOŚĆ DLA TELEFONÓW I TABLETÓW
+==================================================== */
 @media (max-width: 950px) {
+    body {
+        align-items: flex-start; /* Pozwala na płynne przewijanie od góry */
+    }
     .secret-layout-wrapper {
         flex-direction: column;
         align-items: center;
+        padding-top: 130px; /* Miejsce na postać na telefonie */
+        gap: 20px;
     }
-    .vinyl-tile {
+    .secret-content {
+        order: 2; /* Główny kafelek na środku */
         width: 100%;
-        max-width: 320px;
+        max-width: 420px;
     }
+    .vinyl-tile:nth-of-type(1) {
+        order: 1; /* Pierwsza płyta nad panelem lub pod nim w zależności od preferencji */
+        width: 100%;
+        max-width: 420px;
+    }
+    .vinyl-tile:nth-of-type(2) {
+        order: 3; /* Druga płyta na dole */
+        width: 100%;
+        max-width: 420px;
+    }
+    .character-container {
+        top: -140px;
+        width: 230px;
+        height: 220px;
+    }
+}
+
+@media (max-width: 650px) {
+    .idle-pet-container { right: 15px; }
+    .idle-pet-gif { width: 85px; height: 85px; }
+    .idle-pet-bubble { font-size: 12px; padding: 8px 14px; }
+    .gate-card { width: 94%; padding: 45px 20px 30px; }
+    .gate-card h2 { font-size: 20px; }
 }
 </style>
 </head>
@@ -436,6 +487,11 @@ body {
     </div>
 
     <div class="secret-content" id="secretContent">
+        
+        <div class="character-container">
+            <video src="msiedzi2.webm" autoplay loop muted playsinline></video>
+        </div>
+
         <button class="back-to-lobby" onclick="returnToLobby()">← Menu</button>
         <h1>✨ Tajne informacje Madzii ✨</h1>
         
@@ -505,7 +561,7 @@ function checkName() {
     const enteredName = input.value.trim().toLowerCase();
     const wrongBox = document.getElementById("wrongNameBox");
 
-    const validNames = ["magda", "madzia", "magdalena", "madziula", "madziulka", "madzix", "magdalenka", "madziuluńka","madziuluś","madziunia"];
+    const validNames = ["magda", "madzia", "magdalena", "madziula", "madziulka", "madzix", "madzialenka", "madziuluńka", "madziuluś", "madziunia"];
 
     if (validNames.includes(enteredName)) {
         wrongBox.style.display = "none";
@@ -560,13 +616,11 @@ function checkCar() {
     }
 }
 
-// INTELIGENTNE PRZEŁĄCZANIE PLAY / STOP DLA PŁYT
 function toggleMusic(playerNum) {
     const audio = document.getElementById(`audio${playerNum}`);
     const disc = document.getElementById(`disc${playerNum}`);
     const btn = document.getElementById(`btn${playerNum}`);
     
-    // Zatrzymaj automatycznie drugi odtwarzacz
     const otherNum = playerNum === 1 ? 2 : 1;
     const otherAudio = document.getElementById(`audio${otherNum}`);
     const otherDisc = document.getElementById(`disc${otherNum}`);
@@ -576,7 +630,6 @@ function toggleMusic(playerNum) {
     otherDisc.classList.remove("playing");
     otherBtn.innerText = "▶ Play";
 
-    // Przełącz stan bieżącego odtwarzacza
     if (audio.paused) {
         audio.volume = 0.3;
         audio.play().then(() => {
@@ -590,7 +643,6 @@ function toggleMusic(playerNum) {
     }
 }
 
-// CIĄGŁA ANIMACJA SZYFROWANIA W PĘTLI
 function startContinuousEncryption(elementId, targetWord) {
     const element = document.getElementById(elementId);
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
@@ -607,7 +659,6 @@ function startContinuousEncryption(elementId, targetWord) {
     }, 120);
 }
 
-// WYLICZANIE WIEKU ORAZ ODLICZANIA DO URODZIN (6 października)
 function updateBirthAndCountdown() {
     const birthDate = new Date(2005, 9, 6);
     const now = new Date();
@@ -633,8 +684,7 @@ function updateBirthAndCountdown() {
     document.getElementById("birthInfo").innerText = birthString;
 }
 
-// OBSŁUGA ZWIERZĄTKA AFK
-const INACTIVITY_TIME = 20 * 1000;
+const INACTIVITY_TIME = 25 * 1000;
 let inactivityTimer = null;
 let isAfk = false;
 const petContainer = document.getElementById("idlePetContainer");

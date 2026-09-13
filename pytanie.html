@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sekretne Archiwum 💙💜</title>
+<title>Sekretne Archiwum - Tajemnica 💙💜</title>
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>M</text></svg>">
 
 <style>
+/* ====================================================
+   1. STYLE OGÓLNE I TŁO (GLOBALNE)
+==================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -20,10 +23,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Kolor tła strony (gradient) - tutaj zmieniasz odcienie fioletu/niebieskiego */
     background: linear-gradient(135deg, #312e81, #4f46e5, #7c3aed, #8b5cf6);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    padding: 30px 10px;
 }
 
+/* Animowane plamy światła w tle */
 .glow {
     position: fixed;
     width: 300px;
@@ -44,6 +55,7 @@ body {
     50% { transform: translate(20px, -30px); }
 }
 
+/* Przycisk powrotu do menu (w lewym górnym rogu) */
 .back-to-lobby {
     position: absolute;
     top: 20px;
@@ -64,26 +76,31 @@ body {
     transform: scale(1.05);
 }
 
+/* ====================================================
+   2. OKNO BRAMKI (WPISYWANIE IMIENIA I DATY)
+==================================================== */
 .gate-card {
     position: relative;
     z-index: 10;
     width: 90%;
     max-width: 440px;
-    padding: 55px 30px 40px;
+    padding: 55px 25px 35px;
     text-align: center;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(18px);
     border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    margin: auto;
 }
 
 .gate-card h2 {
     color: white;
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 20px;
 }
 
+/* Pola tekstowe w bramce (imię, data) */
 .gate-input {
     width: 100%;
     padding: 14px 20px;
@@ -100,6 +117,7 @@ body {
 
 .gate-input:focus { border-color: #a855f7; }
 
+/* Przyciski w bramce */
 .gate-btn {
     background: linear-gradient(135deg, #6366f1, #a855f7);
     color: white;
@@ -115,6 +133,7 @@ body {
 
 .gate-btn:hover { transform: scale(1.05); }
 
+/* Komunikat o błędnym imieniu/dacie */
 .wrong-box {
     display: none;
     margin-top: 25px;
@@ -135,27 +154,27 @@ body {
 }
 
 /* ====================================================
-   GALERIA ZDJĘĆ - WACHLARZ KART W RĘCE + SEKRETNE POLE
+   3. GALERIA ZDJĘĆ
 ==================================================== */
-
 .gallery-container {
     display: none;
     position: relative;
     z-index: 10;
     width: 94%;
-    max-width: 1050px;
+    max-width: 1200px;
     padding: 60px 20px 30px;
     text-align: center;
     animation: fadeIn 0.5s ease forwards;
+    margin: auto;
 }
 
 .gallery-header {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .gallery-header h1 {
     color: #ffffff;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 8px;
     text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -163,44 +182,65 @@ body {
 
 .gallery-header p {
     color: rgba(255, 255, 255, 0.85);
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .photo-tiles-grid {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 40px;
     flex-wrap: wrap;
     perspective: 1200px;
     padding: 20px 0;
+    margin-bottom: 25px;
 }
 
+/* Przycisk przełączania trybu Chibi na dole */
+.chibi-toggle-btn {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chibi-toggle-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 12px 25px rgba(236, 72, 153, 0.4);
+}
+
+/* Kafelki głównych zdjęć */
 .photo-tile {
     position: relative;
-    width: 250px;
+    width: 320px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(16px);
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 15px;
+    padding: 18px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     transform-origin: bottom center;
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, background 0.4s ease;
 }
 
-.photo-tiles-grid:hover .photo-tile:nth-child(1) {
-    transform: translateY(-15px) rotate(-8deg) scale(1.05);
-}
-
-.photo-tiles-grid:hover .photo-tile:nth-child(2) {
-    transform: translateY(-25px) rotate(0deg) scale(1.08);
-    z-index: 5;
-}
-
-.photo-tiles-grid:hover .photo-tile:nth-child(3) {
-    transform: translateY(-15px) rotate(8deg) scale(1.05);
+@media (min-width: 769px) {
+    .photo-tiles-grid:hover .photo-tile:nth-child(1) {
+        transform: translateY(-15px) rotate(-8deg) scale(1.05);
+    }
+    .photo-tiles-grid:hover .photo-tile:nth-child(2) {
+        transform: translateY(-25px) rotate(0deg) scale(1.08);
+        z-index: 5;
+    }
+    .photo-tiles-grid:hover .photo-tile:nth-child(3) {
+        transform: translateY(-15px) rotate(8deg) scale(1.05);
+    }
 }
 
 .photo-tile:hover {
@@ -209,9 +249,10 @@ body {
     background: rgba(255, 255, 255, 0.22);
 }
 
+/* Kontener na główne zdjęcie */
 .photo-wrapper {
     width: 100%;
-    height: 230px;
+    height: 300px;
     border-radius: 16px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.2);
@@ -230,23 +271,28 @@ body {
 }
 
 .photo-caption {
-    margin-top: 12px;
+    margin-top: 14px;
     color: white;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
+/* ====================================================
+   MIEJSCE ZMIAN: SEKRETNE ZDJĘCIA (WYMIARY OKIENKA I OBRAZKA)
+==================================================== */
+
+/* 1. TUTAJ ZMIENIASZ WYMIARY CAŁEGO WYSKAKUJĄCEGO OKIENKA SEKRETU */
 .secret-slot {
     position: absolute;
     top: 50%;
     left: 102%;
     transform: translateY(-50%) scale(0);
-    width: 130px;
-    height: 170px;
-    background: rgba(255, 255, 255, 0.95);
+    width: 210px;  /* Szerokość okienka sekretu (możesz zmienić np. na 230px) */
+    height: 270px; /* Wysokość okienka sekretu (możesz zmienić np. na 300px) */
+    background: linear-gradient(135deg, rgba(56, 189, 248, 1), rgba(37, 99, 235, 1));
     border-radius: 16px;
-    padding: 8px;
+    padding: 10px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
     opacity: 0;
     pointer-events: none;
@@ -263,33 +309,38 @@ body {
     opacity: 1;
 }
 
+/* 2. TUTAJ ZMIENIASZ WYSOKOŚĆ SAMEGO OBRAZKA W WEWNĄTRZ OKIENKA SEKRETU */
 .secret-slot img {
     width: 100%;
-    height: 125px;
+    height: 210px; /* Wysokość samego sekretnego zdjęcia (możesz dopasować do wysokości okienka wyżej) */
     object-fit: cover;
     border-radius: 10px;
 }
 
 .secret-slot span {
-    margin-top: 5px;
-    color: #4f46e5;
-    font-size: 11px;
+    margin-top: 6px;
+    color: #ededed;
+    font-size: 12px;
     font-weight: bold;
 }
 
+/* ====================================================
+   4. GŁÓWNA KARTA PYTANIA ("Czy zostaniesz moją dziewczyną?")
+==================================================== */
 .card {
     display: none;
     position: relative;
     z-index: 5;
     width: 90%;
     max-width: 550px;
-    padding: 55px 30px 40px;
+    padding: 50px 25px 35px;
     text-align: center;
     background: rgba(255, 255, 255, 0.13);
     backdrop-filter: blur(18px);
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    margin: auto;
 }
 
 .heart {
@@ -305,29 +356,30 @@ body {
 
 h1 {
     color: white;
-    font-size: 34px;
+    font-size: 26px;
     margin-bottom: 15px;
     text-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
 }
 
 p {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 18px;
-    margin-bottom: 35px;
+    font-size: 16px;
+    margin-bottom: 30px;
 }
 
 .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     height: 70px;
+    position: relative;
 }
 
 button.action-btn {
     border: none;
-    padding: 16px 42px;
-    font-size: 20px;
+    padding: 14px 32px;
+    font-size: 18px;
     font-weight: bold;
     border-radius: 50px;
     cursor: pointer;
@@ -355,7 +407,7 @@ button.action-btn {
 .timeout-notice {
     display: none;
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: #fbcfe8;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
@@ -363,12 +415,15 @@ button.action-btn {
 
 .result {
     display: none;
-    margin-top: 30px;
+    margin-top: 25px;
     color: white;
-    font-size: 27px;
+    font-size: 24px;
     font-weight: bold;
 }
 
+/* ====================================================
+   5. EFEKTY SPECJALNE (SERDUSZKA, KONFETTI, GIF-Y)
+==================================================== */
 .screen-heart {
     position: fixed;
     bottom: -60px;
@@ -409,21 +464,22 @@ button.action-btn {
 
 .romantic-gif {
     position: absolute;
-    width: 220px;
+    width: 160px;
     max-width: 20vw;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
     animation: cuteGifFloat 3s infinite ease-in-out;
 }
 
-.left-gif { left: 4%; top: 50%; transform: translateY(-50%) rotate(-5deg); }
-.right-gif { right: 4%; top: 50%; transform: translateY(-50%) rotate(5deg); animation-delay: 0.8s; }
+.left-gif { left: 3%; top: 50%; transform: translateY(-50%) rotate(-5deg); }
+.right-gif { right: 3%; top: 50%; transform: translateY(-50%) rotate(5deg); animation-delay: 0.8s; }
 
 @keyframes cuteGifFloat {
     0%, 100% { margin-top: 0; }
     50% { margin-top: -14px; }
 }
 
+/* Widget bezczynności (zwierzątko w prawym dolnym rogu) */
 .idle-pet-container {
     position: fixed;
     bottom: -220px;
@@ -456,6 +512,25 @@ button.action-btn {
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.7);
     object-fit: cover;
+}
+
+/* ====================================================
+   6. RESPONSYWNOŚĆ (TELEFONY I TABLETY)
+==================================================== */
+@media (max-width: 768px) {
+    body { align-items: flex-start; }
+    .gallery-container { padding-top: 40px; }
+    .photo-tiles-grid { flex-direction: column; align-items: center; gap: 20px; }
+    .photo-tile { width: 100%; max-width: 300px; }
+    .secret-slot { display: none; }
+    .romantic-gif { display: none; }
+}
+
+@media (max-width: 650px) {
+    .idle-pet-container { right: 15px; }
+    .idle-pet-gif { width: 85px; height: 85px; }
+    .idle-pet-bubble { font-size: 12px; padding: 8px 14px; }
+    .gate-card { width: 94%; padding: 45px 20px 30px; }
 }
 </style>
 </head>
@@ -517,32 +592,34 @@ button.action-btn {
 
     <div class="photo-tiles-grid">
         <div class="photo-tile">
-            <div class="photo-wrapper"><img src="zdjecie1.jpg" alt="Zdjęcie 1"></div>
-            <div class="photo-caption">Madziulka w aucie 🚗</div>
+            <div class="photo-wrapper"><img id="img1" src="zdjecie1.jpg" alt="Zdjęcie 1"></div>
+            <div class="photo-caption" id="cap1">Madziulka w aucie 🚗</div>
             <div class="secret-slot">
-                <img src="sekretne1.jpg" alt="Sekretne 1">
-                <span>Sekret ✨</span>
+                <img id="sec1" src="sekretne1.jpg" alt="Sekretne 1">
+                <span>Sekretne zdjęcie ✨</span>
             </div>
         </div>
 
         <div class="photo-tile">
-            <div class="photo-wrapper"><img src="zdjecie2.jpg" alt="Zdjęcie 2"></div>
-            <div class="photo-caption">Madziuluś u fryzjera ✂️</div>
+            <div class="photo-wrapper"><img id="img2" src="zdjecie2.jpg" alt="Zdjęcie 2"></div>
+            <div class="photo-caption" id="cap2">Madziuluś u fryzjera ✂️</div>
             <div class="secret-slot">
-                <img src="sekretne2.jpg" alt="Sekretne 2">
-                <span>Sekret 💖</span>
+                <img id="sec2" src="sekretne2.jpg" alt="Sekretne 2">
+                <span>Sekretne zdjęcie 💖</span>
             </div>
         </div>
 
         <div class="photo-tile">
-            <div class="photo-wrapper"><img src="zdjecie3.jpg" alt="Zdjęcie 3"></div>
-            <div class="photo-caption">Madziunia na ognisku 🔥</div>
+            <div class="photo-wrapper"><img id="img3" src="zdjecie3.jpg" alt="Zdjęcie 3"></div>
+            <div class="photo-caption" id="cap3">Madziunia na ognisku 🔥</div>
             <div class="secret-slot">
-                <img src="sekretne3.jpg" alt="Sekretne 3">
-                <span>Sekret 💫</span>
+                <img id="sec3" src="sekretne3.jpg" alt="Sekretne 3">
+                <span>Sekretne zdjęcie💫</span>
             </div>
         </div>
     </div>
+
+    <button class="chibi-toggle-btn" onclick="toggleChibiMode()">Przełącz na tryb: Chibi ✨</button>
 </div>
 
 <div class="romantic-gifs" id="romanticGifs">
@@ -567,6 +644,10 @@ button.action-btn {
 </div>
 
 <script>
+/* ====================================================
+   LOGIKA JAVASCRIPT
+==================================================== */
+
 function returnToLobby() {
     window.location.href = 'sekretne archiwum.html';
 }
@@ -622,6 +703,57 @@ function checkDate() {
     }
 }
 
+let isChibiMode = false;
+
+function toggleChibiMode() {
+    isChibiMode = !isChibiMode;
+    const btn = event.target;
+
+    const img1 = document.getElementById("img1");
+    const img2 = document.getElementById("img2");
+    const img3 = document.getElementById("img3");
+
+    const sec1 = document.getElementById("sec1");
+    const sec2 = document.getElementById("sec2");
+    const sec3 = document.getElementById("sec3");
+
+    const cap1 = document.getElementById("cap1");
+    const cap2 = document.getElementById("cap2");
+    const cap3 = document.getElementById("cap3");
+
+    if (isChibiMode) {
+        btn.innerHTML = "Wróć do zwykłych zdjęć 📸";
+        btn.style.background = "linear-gradient(135deg, #6366f1, #a855f7)";
+        
+        img1.src = "chibi1.jpg";
+        img2.src = "chibi2.jpg";
+        img3.src = "chibi3.jpg";
+
+        sec1.src = "schibi1.jpg";
+        sec2.src = "schibi2.jpg";
+        sec3.src = "schibi3.jpg";
+
+        cap1.innerText = "Madziulka Chibi w aucie ✨";
+        cap2.innerText = "Madziuluś Chibi u fryzjera 💖";
+        cap3.innerText = "Madziunia Chibi na ognisku💫";
+    } else {
+        btn.innerHTML = "Przełącz na tryb: Chibi ✨";
+        btn.style.background = "linear-gradient(135deg, #ec4899, #8b5cf6)";
+
+        img1.src = "zdjecie1.jpg";
+        img2.src = "zdjecie2.jpg";
+        img3.src = "zdjecie3.jpg";
+
+        sec1.src = "sekretne1.jpg";
+        sec2.src = "sekretne2.jpg";
+        sec3.src = "sekretne3.jpg";
+
+        cap1.innerText = "Madziulka w aucie 🚗";
+        cap2.innerText = "Madziuluś u fryzjera ✂️";
+        cap3.innerText = "Madziunia na ognisku 🔥";
+    }
+}
+
 const dangerDistance = 120;
 const safeDistance = 140;
 const maxRadiusFromCard = 180;
@@ -631,13 +763,23 @@ let escapeCount = 0;
 let isVerified = false;
 
 document.addEventListener("mousemove", function(event) {
+    handleNoButtonEscape(event.clientX, event.clientY);
+});
+
+document.addEventListener("touchmove", function(event) {
+    if (event.touches.length > 0) {
+        handleNoButtonEscape(event.touches[0].clientX, event.touches[0].clientY);
+    }
+}, { passive: true });
+
+function handleNoButtonEscape(clientX, clientY) {
     if (!isVerified || noButton.style.display === "none" || document.getElementById("mainCard").style.display === "none") return;
 
     const rect = noButton.getBoundingClientRect();
     const buttonX = rect.left + rect.width / 2;
     const buttonY = rect.top + rect.height / 2;
 
-    const distance = Math.sqrt(Math.pow(event.clientX - buttonX, 2) + Math.pow(event.clientY - buttonY, 2));
+    const distance = Math.sqrt(Math.pow(clientX - buttonX, 2) + Math.pow(clientY - buttonY, 2));
 
     if (distance < dangerDistance && !moving) {
         escapeCount++;
@@ -646,9 +788,9 @@ document.addEventListener("mousemove", function(event) {
             document.getElementById("timeoutNotice").style.display = "block";
             return;
         }
-        moveNoButton(event.clientX, event.clientY);
+        moveNoButton(clientX, clientY);
     }
-});
+}
 
 function moveNoButton(mouseX, mouseY) {
     moving = true;
